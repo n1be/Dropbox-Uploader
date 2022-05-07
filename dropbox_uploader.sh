@@ -1550,10 +1550,10 @@ function db_sha_local
     		# when using the original syntax. This option works instead.
 		shaHex=$(echo $SHA_CONCAT | sed 's/\([0-9A-Fa-f]\{2\}\)/\\x\1/g')
     else
-	    shaHex=$(echo $SHA_CONCAT | sed 's/\([0-9A-F]\{2\}\)/\\x\1/gI')
+	    shaHex=$(echo $SHA_CONCAT | sed 's/\([[:xdigit:]]\{2\}\)/\\x\1/g')
 	fi
 
-    echo -ne $shaHex | shasum -a 256 | awk '{print $1}'
+    echo -ne "$shaHex" | shasum -a 256 | awk '{print $1}'
 }
 
 ################
